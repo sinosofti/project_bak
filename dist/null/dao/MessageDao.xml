@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="GBK"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="null.dao.MessageDao">
+
+	<resultMap id="BaseResultMap" type="null.po.Message">
+		<result column="ID" property="id" />
+		<result column="SENDUSER" property="senduser" />
+		<result column="RECEIVEUSER" property="receiveuser" />
+		<result column="GROUPID" property="groupid" />
+		<result column="ISREAD" property="isread" />
+		<result column="TYPE" property="type" />
+		<result column="CONTENT" property="content" />
+		<result column="CREATEUSER" property="createuser" />
+		<result column="CREATEDATE" property="createdate" />
+		<result column="UPDATEDATE" property="updatedate" />
+	</resultMap>
+<sql id="Base_Column_List">
+		ID, SENDUSER, RECEIVEUSER, GROUPID, ISREAD, TYPE, CONTENT, CREATEUSER, CREATEDATE, UPDATEDATE
+	</sql>
+	<select id="find" resultMap="BaseResultMap" parameterType="java.io.Serializable">
+		select ID, SENDUSER, RECEIVEUSER, GROUPID, ISREAD, TYPE, CONTENT, CREATEUSER, CREATEDATE, UPDATEDATE
+		from IM_MESSAGE
+		where
+		ID = #{id}
+	</select>
+
+	<select id="findAll" resultMap="BaseResultMap">
+		select ID, SENDUSER, RECEIVEUSER, GROUPID, ISREAD, TYPE, CONTENT, CREATEUSER, CREATEDATE, UPDATEDATE
+		from IM_MESSAGE
+	</select>
+
+	<delete id="delete" parameterType="java.io.Serializable">
+		delete from IM_MESSAGE
+		where
+		ID = #{id}
+	</delete>
+
+	<delete id="deleteAll">
+		delete from IM_MESSAGE
+	</delete>
+
+	<insert id="create" parameterType="null.po.Message">
+		<selectKey resultType="Integer" keyProperty="id" order="BEFORE">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+
+		insert into IM_MESSAGE (ID, SENDUSER, RECEIVEUSER, GROUPID, ISREAD, TYPE, CONTENT, CREATEUSER, CREATEDATE, UPDATEDATE)
+		values (
+		#{id, javaType=String, jdbcType=VARCHAR2},
+		#{senduser, javaType=String, jdbcType=VARCHAR2},
+		#{receiveuser, javaType=String, jdbcType=VARCHAR2},
+		#{groupid, javaType=String, jdbcType=VARCHAR2},
+		#{isread, javaType=String, jdbcType=VARCHAR2},
+		#{type, javaType=String, jdbcType=VARCHAR2},
+		#{content, javaType=String, jdbcType=VARCHAR2},
+		#{createuser, javaType=String, jdbcType=VARCHAR2},
+		#{createdate, javaType=Date, jdbcType=TIMESTAMP},
+		#{updatedate, javaType=Date, jdbcType=TIMESTAMP}
+		)
+	</insert>
+
+	<update id="update" parameterType="null.po.Message">
+		update IM_MESSAGE
+		set
+		ID = #{id, javaType=String, jdbcType=VARCHAR2},
+		SENDUSER = #{senduser, javaType=String, jdbcType=VARCHAR2},
+		RECEIVEUSER = #{receiveuser, javaType=String, jdbcType=VARCHAR2},
+		GROUPID = #{groupid, javaType=String, jdbcType=VARCHAR2},
+		ISREAD = #{isread, javaType=String, jdbcType=VARCHAR2},
+		TYPE = #{type, javaType=String, jdbcType=VARCHAR2},
+		CONTENT = #{content, javaType=String, jdbcType=VARCHAR2},
+		CREATEUSER = #{createuser, javaType=String, jdbcType=VARCHAR2},
+		CREATEDATE = #{createdate, javaType=Date, jdbcType=TIMESTAMP},
+		UPDATEDATE = #{updatedate, javaType=Date, jdbcType=TIMESTAMP}
+		where
+		ID = #{id}
+	</update>
+
+	<!--codegen -->
+
+</mapper>
